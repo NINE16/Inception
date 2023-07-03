@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+sleep 5
 if [ -f ./wp-config.php ]
 then
 	echo "wordpress already downloaded"
@@ -12,18 +14,14 @@ else
 	chown -R www-data:www-data /var/www/
 	chmod -R 755 /var/www/html/
 
-
-	#Inport env variables in the config file
-	sed -i "s/username_here/$SQL_USER/g" wp-config-sample.php
-	sed -i "s/password_here/$SQL_PASSWORD/g" wp-config-sample.php
-	sed -i "s/localhost/$SQL_HOSTNAME/g" wp-config-sample.php
-	sed -i "s/database_name_here/$SQL_DATABASE/g" wp-config-sample.php
-	cp wp-config-sample.php wp-config.php
-	if [ $? == 0 ] ; then
-		echo -e "\t\033[32m WP OK 033[0m"
-	  else
-		echo -e "\t\033[31m WP failed\033[0m"
-	  fi
+	wp config create	--allow-root \
+						--dbname=$SQL_DATABASE \
+						--dbuser=$SQL_ADMIN_USR \
+						--dbpass=$SQL_ADMIN_PWS \
+						--dbhost=$SQL_HOSTNAME --path='/var/www/html'
+	wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL --allow-root
+	wp user create $SQL_USER $SQL_USER_MAIL --user_pass=$SQL_PASSWORD --role=author --allow-root
+	wp theme install inspiro --activate --allow-root
 fi
 # if /run/php folder does not exist, create it
 if [ ! -d /run/php ]; then

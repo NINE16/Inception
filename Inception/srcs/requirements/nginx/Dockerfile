@@ -15,12 +15,8 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 
 
 COPY conf/nginx.conf /etc/nginx/conf.d
-#conf.d/default.conf
-# COPY conf/ssl_params.conf /etc/nginx/snippets/ssl-params.conf
-# COPY index.html /usr/share/nginx/html/index.html
 
 RUN mkdir -p run/nginx
-# RUN rm -rf /etc/nginx/sites-available/
 RUN chmod 777 /var/www/html
 RUN chown -R www-data:www-data /var/www/html
 
