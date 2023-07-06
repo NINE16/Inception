@@ -15,12 +15,12 @@ else
 	chmod -R 755 /var/www/html/
 
 	wp config create	--allow-root \
-						--dbname=$SQL_DATABASE \
+						--dbname=$MYSQL_DATABASE \
 						--dbuser=$WP_ADMIN_USR \
 						--dbpass=$WP_ADMIN_PWD \
-						--dbhost=$SQL_HOSTNAME --path='/var/www/html'
+						--dbhost=$MYSQL_HOSTNAME --path='/var/www/html'
 	wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL --allow-root --path='/var/www/html'
-	wp user create $SQL_USER $SQL_USER_MAIL --user_pass=$SQL_PASSWORD --role=author --allow-root --path='/var/www/html'
+	wp user create $MYSQL_USER $MYSQL_USER_MAIL --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path='/var/www/html'
 	wp theme install inspiro --activate --allow-root --path='/var/www/html'
 fi
 # if /run/php folder does not exist, create it
