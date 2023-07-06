@@ -12,8 +12,8 @@ clean:
 	docker rm $$(docker ps -qa);\
 	docker rmi -f $$(docker images -qa);\
 	docker volume rm $$(docker volume ls -q);\
-	rm -rf $(HOME)/data/wordpress/*
-	rm -rf $(HOME)/data/mariadb/*
+	rm -rf home/nikki/data/wordpress/*
+	rm -rf home/nikki/data/mariadb/*
 
 .PHONY: all re down clean
 
