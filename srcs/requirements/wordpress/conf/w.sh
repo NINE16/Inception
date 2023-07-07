@@ -20,7 +20,7 @@ else
 						--dbpass=$MYSQL_PASSWORD \
 						--dbhost=$MYSQL_HOSTNAME --path='/var/www/html'
 	wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL --allow-root --path='/var/www/html'
-	wp user create $MYSQL_USER $MYSQL_USER_MAIL --user_pass=$MYSQL_PASSWORD --role=author --allow-root --path='/var/www/html'
+	wp user create $MYSQL_USER1 $MYSQL_USER_MAIL1 --user_pass=$MYSQL_PASSWORD1 --role=author --allow-root --path='/var/www/html'
 	wp theme install zino --activate --allow-root --path='/var/www/html'
 fi
 if [ ! -d /run/php ]; then
